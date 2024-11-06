@@ -53,4 +53,7 @@
   
   "XylobonePriceName": "Xylobone Price",
   "XylobonePriceTooltip": "The cost, in Mage Skulls, of the Xylobone in the Bone Lord shop.",
+  
+  "HalloweenMessageName": "Halloween Message",
+  "HalloweenMessageTooltip": "Whether or not to log the cute Halloween message to your console when the game launches."
 }

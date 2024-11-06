@@ -12,6 +12,7 @@ public sealed class ModConfig
     public int BoneItemPrice { get; set; } = 5;
     public int ArtifactPrice { get; set; } = 20;
     public int XylobonePrice { get; set; } = 10;
+    public bool HalloweenMessage { get; set; } = true;
 
     public ModConfig()
     {
@@ -88,6 +89,14 @@ public sealed class ModConfig
             tooltip: i18n.XylobonePriceTooltip,
             getValue: () => this.XylobonePrice,
             setValue: value => this.XylobonePrice = value
+        );
+        
+        configMenu.AddBoolOption(
+            mod: ModManifest,
+            name: i18n.HalloweenMessageName,
+            tooltip: i18n.HalloweenMessageTooltip,
+            getValue: () => this.HalloweenMessage,
+            setValue: value => this.HalloweenMessage = value
         );
     }
 }

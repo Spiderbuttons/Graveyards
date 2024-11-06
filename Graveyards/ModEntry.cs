@@ -675,6 +675,8 @@ namespace Graveyards
         private void HappyHalloween()
 
         {
+            if (!Config.HalloweenMessage) return;
+            
             // My linter/Prettier/whatever the fuck made an absolute mess of this formatting, eugh.
             
             var hf = "\u2588".Pastel("#000000").PastelBg("#000000");
