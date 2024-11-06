@@ -3,6 +3,9 @@
   "PressEsc": "Press ESC to exit.",
   "UseKeyboard": "Use your keyboard to play music!",
   
+  // Bone Lord Name
+  "BoneLord": "Bone Lord",
+  
   // Bone Lord Dialogue
   "Mon": "Ah, there you are. The dwarf has told me much about you.#$b#It's around this time of year my brethren get a bit... rattled. I'm sure it's nothing more than you can handle...",
   "Tue": "The week has only just begun. Have you, ah, 'convinced' many of my kin to return to rest already?",

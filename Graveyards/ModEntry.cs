@@ -278,7 +278,7 @@ namespace Graveyards
                     var editor = asset.AsDictionary<string, CharacterData>();
                     editor.Data[$"{ModManifest.UniqueID}_BoneLord"] = new CharacterData()
                     {
-                        DisplayName = "Bone Lord",
+                        DisplayName = i18n.BoneLord(),
                         CanSocialize = "FALSE",
                         CanReceiveGifts = false,
                         CanGreetNearbyCharacters = false,
@@ -396,7 +396,7 @@ namespace Graveyards
                 });
             }
 
-            if (e.NameWithoutLocale.BaseName.StartsWith("Maps/Mines/"))
+            if (e.NameWithoutLocale.BaseName.StartsWith("Maps/Mines/") && Game1.season is Season.Fall && Game1.dayOfMonth >= 22 && Game1.dayOfMonth <= 28)
             {
                 if (!int.TryParse(e.NameWithoutLocale.BaseName.Split('/').Last(), out int lvl)) return;
                 if (!graveLevels.Contains(lvl)) return;
