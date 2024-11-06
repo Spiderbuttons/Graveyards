@@ -569,8 +569,15 @@ namespace Graveyards
 
         private void OnGameLaunched(object sender, GameLaunchedEventArgs e)
         {
-            HappyHalloween();
-            
+            try
+            {
+                HappyHalloween();
+            }
+            catch (Exception ex)
+            {
+                Log.Trace("Can't do Happy Halloween message ):");
+            }
+
             var configMenu = Helper.ModRegistry.GetApi<IGenericModConfigMenuApi>("spacechase0.GenericModConfigMenu");
             if (configMenu != null) Config.SetupConfig(configMenu, ModManifest, Helper);
         }
@@ -659,6 +666,8 @@ namespace Graveyards
                                  "!".Pastel("#FF6A00").PastelBg("#000000") +
                                  hf + happyPostfix;
 
+            var happy1 = happyPrefix + hf + hf + hf + st + hf + hf + hf + hf + hf + st + hf + hf + hf + hf + st + hf +
+                         hf + hf + happyPostfix;
             var happy2 = happyPrefix + hf + st + hf + hf + hf + hf + hf + st + hf + hf + hf + hf + hf + mo + hf + hf +
                          hf + hf + happyPostfix;
             var happy3 = happyPrefix + hf + hf + hf + hf + st + hf + hf + hf + hf + hf + st + hf + hf + hf + hf + st +
@@ -667,6 +676,7 @@ namespace Graveyards
                          hf + hf + happyPostfix;
             var happy5 = happyPrefix + gr + gr + gr + gr + gr + gr + gr + gr + gr + gr + gr + gr + gr + gr + gr + gr +
                          gr + gr + happyPostfix;
+            Log.Alert(happy1);
             Log.Alert(happyHalloween);
             Log.Alert(happy2);
             Log.Alert(happy3);
