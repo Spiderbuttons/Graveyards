@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <AssemblyName>SkeletonWar</AssemblyName>
+        <RootNamespace>SkeletonWar</RootNamespace>
+        <Version>2.0.0</Version>
+        <TargetFramework>net6.0</TargetFramework>
+        <LangVersion>Latest</LangVersion>
+        <GamePath>C:\Program Files (x86)\Steam\steamapps\common\Stardew Valley</GamePath>
+        <GameModsPath>$(GamePath)\ModsDebug</GameModsPath>
+        <EnableHarmony>true</EnableHarmony>
+        <EnableModDeploy>true</EnableModDeploy>
+        <EnableModZip>true</EnableModZip>
+        <ModFolderName>SkeletonWar</ModFolderName>
+        <Title>SkeletonWar</Title>
+        <Authors>Spiderbuttons</Authors>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <OutputPath>bin\Debug</OutputPath>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <TranslationClassBuilder_ClassName>i18n</TranslationClassBuilder_ClassName>
+        <TranslationClassBuilder_AddGetByKey>true</TranslationClassBuilder_AddGetByKey>
+        <TranslationClassBuilder_AddKeyMap>true</TranslationClassBuilder_AddKeyMap>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.3.0"/>
+        <PackageReference Include="Pathoschild.Stardew.ModTranslationClassBuilder" Version="2.0.1"/>
+    </ItemGroup>
+
+
+    <PropertyGroup>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
+</Project>
