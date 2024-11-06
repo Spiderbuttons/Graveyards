@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="20" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="10">
+ <properties>
+  <property name="Spiderbuttons.Graveyards" value="T"/>
+ </properties>
+ <tileset firstgid="1" name="mine" tilewidth="16" tileheight="16" tilecount="288" columns="16">
+  <image source="mine" width="256" height="288"/>
+  <tile id="0">
+   <properties>
+    <property name="Type" value="Dirt"/>
+   </properties>
+  </tile>
+  <tile id="137">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="138">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="139">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="140">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="153">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="154">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="155">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="165">
+   <properties>
+    <property name="Type" value="Dirt"/>
+   </properties>
+  </tile>
+  <tile id="166">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="167">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="168">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="169">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="170">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="171">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="172">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="181">
+   <properties>
+    <property name="Type" value="Dirt"/>
+   </properties>
+  </tile>
+  <tile id="182">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="183">
+   <properties>
+    <property name="Type" value="Dirt"/>
+   </properties>
+  </tile>
+  <tile id="184">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="185">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="186">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="187">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="188">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="198">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="199">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="200">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="201">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="202">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="203">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="204">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="217">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="218">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="219">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="233">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="234">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+  <tile id="235">
+   <properties>
+    <property name="Type" value="Stone"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="289" name="z_Spiderbuttons.Graveyards" tilewidth="16" tileheight="16" tilecount="8" columns="2">
+  <image source="z_Spiderbuttons.Graveyards" width="32" height="64"/>
+ </tileset>
+ <layer id="1" name="Back" width="20" height="20">
+  <data encoding="csv">
+78,78,78,78,78,78,0,0,0,0,0,0,0,0,78,78,78,78,78,78,
+78,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,78,78,78,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,78,78,78,
+0,0,0,0,0,0,189,219,219,219,219,219,188,203,0,0,0,0,0,78,
+0,0,189,219,219,219,219,187,235,235,235,186,219,219,219,219,219,0,0,0,
+0,218,219,187,235,235,235,236,139,141,139,234,168,168,169,219,219,188,204,0,
+0,234,235,236,138,141,139,139,168,139,170,183,184,184,185,235,186,219,188,0,
+0,139,139,154,139,168,168,153,184,185,139,199,200,200,201,155,234,186,219,188,
+0,0,139,139,183,184,184,184,184,185,156,167,168,169,139,139,139,234,186,219,
+0,0,139,138,199,200,200,150,184,152,169,183,184,185,138,139,156,139,218,219,
+0,0,139,139,139,139,139,183,184,184,152,153,184,185,139,139,139,202,189,219,
+0,0,139,139,156,139,139,199,200,150,184,184,151,139,139,139,139,218,219,219,
+0,0,139,139,139,139,139,139,139,139,200,200,139,139,139,139,168,169,219,219,
+0,0,203,204,141,168,169,156,155,139,139,139,139,139,156,183,184,185,219,219,
+0,0,219,220,183,184,185,139,139,139,139,139,139,139,139,183,184,185,186,219,
+0,0,235,236,199,200,201,139,139,139,156,168,169,139,139,199,200,201,218,219,
+78,78,78,139,139,139,139,139,202,203,183,184,185,139,139,139,139,156,218,219,
+78,78,78,139,139,139,139,156,218,219,199,200,201,139,154,139,139,139,234,235,
+78,78,78,139,139,139,139,139,234,235,236,139,139,139,139,139,139,0,0,0,
+78,78,78,78,78,0,0,0,0,0,0,0,0,0,0,0,0,0,78,78
+</data>
+ </layer>
+ <layer id="2" name="Buildings" width="20" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,70,71,74,75,68,77,94,95,0,0,0,0,0,0,
+0,0,70,71,76,77,86,87,66,67,84,93,110,111,74,94,95,0,0,0,
+0,69,86,87,92,93,102,103,82,83,100,109,126,127,90,110,111,0,0,0,
+0,85,102,103,108,109,118,119,122,123,116,125,142,143,106,126,127,94,95,0,
+0,101,118,119,124,125,134,135,0,0,0,0,158,159,122,142,143,110,111,0,
+0,117,134,135,0,0,0,0,0,0,0,0,0,0,0,158,159,126,127,112,
+0,133,0,0,286,256,270,284,291,136,286,253,284,288,2147483943,256,0,142,143,144,
+0,149,0,0,0,292,286,253,272,137,270,255,191,137,190,254,0,158,159,144,
+0,197,0,0,0,230,256,270,191,256,253,269,190,285,269,136,0,0,0,160,
+0,129,233,0,0,175,272,269,136,230,191,295,136,284,270,191,0,0,222,78,
+0,0,129,0,0,191,269,295,254,136,296,230,272,255,256,136,0,73,75,112,
+0,0,69,72,0,230,272,286,136,270,136,269,285,286,136,175,0,89,91,128,
+0,0,85,88,0,137,272,175,190,284,270,288,137,286,270,285,0,105,107,144,
+0,0,101,104,0,136,230,175,255,191,254,269,175,272,271,295,0,121,123,160,
+0,0,117,120,0,287,2147483943,285,254,253,254,284,175,137,175,175,0,0,0,192,
+0,0,197,0,0,0,0,0,0,0,0,292,0,0,0,0,0,0,0,208,
+0,0,78,78,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,192,
+0,0,0,0,78,78,0,0,0,0,78,78,78,0,0,0,0,0,0,78,
+0,0,0,0,0,0,78,0,0,78,0,0,0,78,0,0,78,78,78,0,
+0,0,0,0,0,0,0,78,78,78,0,0,0,0,78,78,0,0,0,0
+</data>
+ </layer>
+ <layer id="3" name="Front" width="20" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,78,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+78,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,112,0,0,
+78,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,128,0,0,
+78,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,112,
+78,0,0,0,0,0,0,0,289,0,0,0,0,0,2147483941,0,0,0,0,128,
+78,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+78,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,224,
+78,197,217,0,0,0,0,0,0,0,0,293,0,0,0,0,0,0,206,207,
+78,78,233,0,0,0,0,293,0,0,294,0,0,0,0,0,0,206,222,0,
+78,78,197,198,0,0,0,0,0,0,0,0,0,0,0,0,0,73,75,0,
+78,78,69,72,0,0,0,0,0,0,0,0,0,0,0,0,0,89,91,0,
+78,78,85,88,0,0,0,0,0,0,0,0,0,0,0,293,0,0,0,0,
+78,78,133,0,0,0,2147483941,0,0,0,0,0,0,0,0,0,0,0,0,0,
+78,78,149,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+78,78,197,198,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,78,78,214,215,216,217,0,0,221,215,216,198,0,0,0,0,0,0,0,
+0,0,78,78,78,78,233,0,0,237,78,78,214,198,0,0,206,215,215,207,
+0,0,0,78,78,78,214,215,216,222,78,78,78,214,215,216,222,78,78,78,
+0,0,0,0,0,78,78,78,78,78,78,78,78,78,78,78,78,78,0,0
+</data>
+ </layer>
+ <objectgroup id="4" name="Back">
+  <object id="1" name="TileData" x="208" y="96" width="16" height="16">
+   <properties>
+    <property name="Diggable" value="T"/>
+   </properties>
+  </object>
+  <object id="2" name="TileData" x="128" y="112" width="16" height="16">
+   <properties>
+    <property name="Diggable" value="T"/>
+   </properties>
+  </object>
+  <object id="3" name="TileData" x="80" y="128" width="16" height="16">
+   <properties>
+    <property name="Diggable" value="T"/>
+   </properties>
+  </object>
+  <object id="4" name="TileData" x="128" y="160" width="16" height="16">
+   <properties>
+    <property name="Diggable" value="T"/>
+   </properties>
+  </object>
+  <object id="5" name="TileData" x="160" y="176" width="16" height="16">
+   <properties>
+    <property name="Diggable" value="T"/>
+   </properties>
+  </object>
+  <object id="6" name="TileData" x="192" y="144" width="16" height="16">
+   <properties>
+    <property name="Diggable" value="T"/>
+   </properties>
+  </object>
+  <object id="7" name="TileData" x="256" y="208" width="16" height="16">
+   <properties>
+    <property name="Diggable" value="T"/>
+   </properties>
+  </object>
+  <object id="8" name="TileData" x="80" y="224" width="16" height="16">
+   <properties>
+    <property name="Diggable" value="T"/>
+   </properties>
+  </object>
+  <object id="9" name="TileData" x="176" y="256" width="16" height="16">
+   <properties>
+    <property name="Diggable" value="T"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="5" name="Buildings"/>
+ <objectgroup id="6" name="Front"/>
+</map>
