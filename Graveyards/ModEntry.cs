@@ -92,14 +92,8 @@ namespace Graveyards
             Helper.Events.GameLoop.DayStarted += OnDayStarted;
             Helper.Events.Player.Warped += OnWarped;
             Helper.Events.GameLoop.UpdateTicked += OnUpdateTicked;
-            Helper.Events.Multiplayer.ModMessageReceived += OnModMessageReceived;
 
             GameLocation.RegisterTileAction("Spiderbuttons.Graveyards_Headstone", RandomTombstone);
-        }
-
-        private void OnModMessageReceived(object? sender, ModMessageReceivedEventArgs e)
-        {
-            //
         }
         
         private bool RandomTombstone(GameLocation location, string[] args, Farmer player, Point point)
