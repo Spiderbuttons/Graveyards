@@ -19,7 +19,10 @@ using StardewValley.GameData;
 using StardewValley.Extensions;
 using StardewValley.GameData.Characters;
 using StardewValley.GameData.Objects;
+using StardewValley.GameData.Pants;
+using StardewValley.GameData.Shirts;
 using StardewValley.GameData.Shops;
+using StardewValley.Internal;
 using StardewValley.Locations;
 using StardewValley.Menus;
 using StardewValley.Monsters;
@@ -85,7 +88,8 @@ namespace Graveyards
             Config = helper.ReadConfig<ModConfig>();
             Harmony = new Harmony(ModManifest.UniqueID);
 
-            Harmony.PatchAll();
+            Harmony.Patch(AccessTools.Method(typeof(MineShaft),nameof(MineShaft.checkForBuriedItem)),
+                prefix: new HarmonyMethod(typeof(ModEntry), nameof(ArtifactPatch)));
 
             Helper.Events.Content.AssetRequested += this.OnAssetRequested;
             Helper.Events.Input.ButtonPressed += this.OnButtonPressed;
@@ -95,6 +99,52 @@ namespace Graveyards
             Helper.Events.GameLoop.UpdateTicked += OnUpdateTicked;
 
             GameLocation.RegisterTileAction("Spiderbuttons.Graveyards_Headstone", RandomTombstone);
+        }
+
+        private static bool ArtifactPatch(MineShaft __instance, int xLocation, int yLocation)
+        {
+            Log.Debug("Test");
+            if (!__instance.Map.Properties.TryGetValue("Spiderbuttons.Graveyards", out _))
+                return true;
+
+            var shirts = ModHelper.GameContent.Load<Dictionary<string, ShirtData>>("Data/Shirts");
+            var pants = ModHelper.GameContent.Load<Dictionary<string, PantsData>>("Data/Pants");
+            
+            Vector2 tilePixelPos = new Vector2(xLocation * 64, yLocation * 64);
+
+            var rng = Utility.CreateDaySaveRandom(xLocation, yLocation);
+            if (rng.NextDouble() < 0.33) return false;
+            
+            var chance = rng.NextDouble();
+
+            switch (chance)
+            {
+                case < 0.1:
+                {
+                    Item item = ItemRegistry.Create("(O)126");
+                    Game1.createItemDebris(item, tilePixelPos, -1, __instance);
+                    break;
+                }
+                case < 0.3 when rng.NextBool():
+                {
+                    var randomShirt = shirts.Keys.ElementAt(rng.Next(shirts.Count));
+                    Item item = ItemRegistry.Create($"(S){randomShirt}");
+                    Game1.createItemDebris(item, tilePixelPos, -1, __instance);
+                    break;
+                }
+                case < 0.3:
+                {
+                    var randomPants = pants.Keys.ElementAt(rng.Next(pants.Count));
+                    Item item = ItemRegistry.Create($"(P){randomPants}");
+                    Game1.createItemDebris(item, tilePixelPos, -1, __instance);
+                    break;
+                }
+                default:
+                    Game1.createItemDebris(ItemRegistry.Create("(O)330"), tilePixelPos, -1, __instance);
+                    break;
+            }
+            
+            return false;
         }
 
         private bool RandomTombstone(GameLocation location, string[] args, Farmer player, Point point)
