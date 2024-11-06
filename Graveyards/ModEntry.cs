@@ -683,7 +683,7 @@ namespace Graveyards
             var hbf = "\u2588".Pastel("#E2BE46").PastelBg("#000000");
             var gr = "\u2588".Pastel("#007F0E").PastelBg("#000000");
             var mo = "●".Pastel("#F2F2F2").PastelBg("#000000");
-            var st = "\u2219".Pastel("#F2F2F2").PastelBg("#000000");
+            var st = ".".Pastel("#F2F2F2").PastelBg("#000000");
             var happyPrefix = "\u2588\u2593\u2592\u2591".Pastel("#FF6A00").PastelBg("#000000");
             var happyPostfix = "\u2591\u2592\u2593\u2588".Pastel("#FF6A00").PastelBg("#000000");
             var happyHalloween = happyPrefix + hf + "H".Pastel("#FF6A00").PastelBg("#000000") +
