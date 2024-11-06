@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="20" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="10">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="20" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="19">
  <properties>
   <property name="Spiderbuttons.Graveyards" value="T"/>
  </properties>
@@ -313,6 +313,52 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="5" name="Buildings"/>
+ <objectgroup id="5" name="Buildings">
+  <object id="10" name="TileData" x="128" y="96" width="16" height="16">
+   <properties>
+    <property name="Action" value="Spiderbuttons.Graveyards_Headstone"/>
+   </properties>
+  </object>
+  <object id="11" name="TileData" x="80" y="112" width="16" height="16">
+   <properties>
+    <property name="Action" value="Spiderbuttons.Graveyards_Headstone"/>
+   </properties>
+  </object>
+  <object id="12" name="TileData" x="112" y="160" width="16" height="16">
+   <properties>
+    <property name="Action" value="Spiderbuttons.Graveyards_Headstone"/>
+   </properties>
+  </object>
+  <object id="13" name="TileData" x="160" y="160" width="16" height="16">
+   <properties>
+    <property name="Action" value="Spiderbuttons.Graveyards_Headstone"/>
+   </properties>
+  </object>
+  <object id="14" name="TileData" x="176" y="144" width="16" height="16">
+   <properties>
+    <property name="Action" value="Spiderbuttons.Graveyards_Headstone"/>
+   </properties>
+  </object>
+  <object id="15" name="TileData" x="224" y="112" width="16" height="16">
+   <properties>
+    <property name="Action" value="Spiderbuttons.Graveyards_Headstone"/>
+   </properties>
+  </object>
+  <object id="16" name="TileData" x="240" y="208" width="16" height="16">
+   <properties>
+    <property name="Action" value="Spiderbuttons.Graveyards_Headstone"/>
+   </properties>
+  </object>
+  <object id="17" name="TileData" x="176" y="240" width="16" height="16">
+   <properties>
+    <property name="Action" value="Spiderbuttons.Graveyards_Headstone"/>
+   </properties>
+  </object>
+  <object id="18" name="TileData" x="96" y="224" width="16" height="16">
+   <properties>
+    <property name="Action" value="Spiderbuttons.Graveyards_Headstone"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="6" name="Front"/>
 </map>

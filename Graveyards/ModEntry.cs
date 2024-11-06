@@ -42,6 +42,8 @@ namespace Graveyards
 
         internal static Random graveRandom = null!;
 
+        internal static Dictionary<string, string> randomNames = new();
+
         internal static readonly Dictionary<SButton, int> Pitches = new()
         {
             { SButton.Q, 1600 },
@@ -90,10 +92,32 @@ namespace Graveyards
             Helper.Events.GameLoop.DayStarted += OnDayStarted;
             Helper.Events.Player.Warped += OnWarped;
             Helper.Events.GameLoop.UpdateTicked += OnUpdateTicked;
+            Helper.Events.Multiplayer.ModMessageReceived += OnModMessageReceived;
+
+            GameLocation.RegisterTileAction("Spiderbuttons.Graveyards_Headstone", RandomTombstone);
+        }
+
+        private void OnModMessageReceived(object? sender, ModMessageReceivedEventArgs e)
+        {
+            //
+        }
+        
+        private bool RandomTombstone(GameLocation location, string[] args, Farmer player, Point point)
+        {
+            if (!randomNames.TryGetValue(point.ToString(), out var name))
+            {
+                var randomName = Dialogue.randomName();
+                randomNames[point.ToString()] = randomName;
+                name = randomName;
+            }
+            
+            Game1.drawDialogueNoTyping($"Here Lies {name}");
+            return true;
         }
 
         private void ChooseGraveLevels()
         {
+            randomNames.Clear();
             graveLevels.Clear();
             while (graveLevels.Count < 1)
             {
@@ -113,7 +137,7 @@ namespace Graveyards
             graveRandom = Utility.CreateDaySaveRandom();
             ChooseGraveLevels();
 
-            if (Game1.season == Season.Fall && Game1.dayOfMonth == 21)
+            if (Game1.season == Season.Fall && Game1.dayOfMonth == 22)
             {
                 if (Game1.player.mailReceived.Contains($"{ModManifest.UniqueID}_ArrivalDwarvish"))
                 {
@@ -126,11 +150,11 @@ namespace Graveyards
 
                 if (Game1.player.canUnderstandDwarves)
                 {
-                    Game1.addMailForTomorrow($"{ModManifest.UniqueID}_Arrival");
+                    Game1.addMail($"{ModManifest.UniqueID}_Arrival");
                 }
                 else
                 {
-                    Game1.addMailForTomorrow($"{ModManifest.UniqueID}_ArrivalDwarvish");
+                    Game1.addMail($"{ModManifest.UniqueID}_ArrivalDwarvish");
                 }
             }
 
@@ -176,22 +200,37 @@ namespace Graveyards
         {
             if (e.NameWithoutLocale.IsEquivalentTo("Spiderbuttons.Graveyards/1"))
             {
-                e.LoadFromModFile<Map>("assets/Graveyard1.tmx", AssetLoadPriority.Exclusive);
+                e.LoadFromModFile<Map>("assets/Maps/Graveyard1.tmx", AssetLoadPriority.Exclusive);
             }
 
             if (e.NameWithoutLocale.IsEquivalentTo("Spiderbuttons.Graveyards/2"))
             {
-                e.LoadFromModFile<Map>("assets/Graveyard2.tmx", AssetLoadPriority.Exclusive);
+                e.LoadFromModFile<Map>("assets/Maps/Graveyard2.tmx", AssetLoadPriority.Exclusive);
+            }
+            
+            if (e.NameWithoutLocale.IsEquivalentTo("Spiderbuttons.Graveyards/3"))
+            {
+                e.LoadFromModFile<Map>("assets/Maps/Graveyard3.tmx", AssetLoadPriority.Exclusive);
+            }
+            
+            if (e.NameWithoutLocale.IsEquivalentTo("Spiderbuttons.Graveyards/4"))
+            {
+                e.LoadFromModFile<Map>("assets/Maps/Graveyard4.tmx", AssetLoadPriority.Exclusive);
+            }
+            
+            if (e.NameWithoutLocale.IsEquivalentTo("Spiderbuttons.Graveyards/5"))
+            {
+                e.LoadFromModFile<Map>("assets/Maps/Graveyard5.tmx", AssetLoadPriority.Exclusive);
             }
 
             if (e.NameWithoutLocale.IsEquivalentTo($"Characters/{ModManifest.UniqueID}_BoneLord"))
             {
-                e.LoadFromModFile<Texture2D>("assets/BoneLord_Spritesheet.png", AssetLoadPriority.Exclusive);
+                e.LoadFromModFile<Texture2D>("assets/BoneLord/BoneLord_Spritesheet.png", AssetLoadPriority.Exclusive);
             }
 
             if (e.NameWithoutLocale.IsEquivalentTo($"Portraits/{ModManifest.UniqueID}_BoneLord"))
             {
-                e.LoadFromModFile<Texture2D>("assets/BoneLord_Portrait.png", AssetLoadPriority.Exclusive);
+                e.LoadFromModFile<Texture2D>("assets/BoneLord/BoneLord_Portrait.png", AssetLoadPriority.Exclusive);
             }
 
             if (e.NameWithoutLocale.IsEquivalentTo("Data/Characters"))
@@ -229,7 +268,7 @@ namespace Graveyards
 
             if (e.NameWithoutLocale.IsEquivalentTo($"Characters/Dialogue/{ModManifest.UniqueID}_BoneLord"))
             {
-                e.LoadFromModFile<Dictionary<string, string>>("assets/BoneLord_Dialogue.json",
+                e.LoadFromModFile<Dictionary<string, string>>("assets/BoneLord/BoneLord_Dialogue.json",
                     AssetLoadPriority.Exclusive);
             }
 
@@ -275,16 +314,27 @@ namespace Graveyards
                             {
                                 TradeItemId = $"{ModManifest.UniqueID}_SkeletonSkull",
                                 TradeItemAmount = 5,
-                                AvailableStock = 1,
                                 AvailableStockLimit = LimitedStockMode.Player,
-                                Id = "SkullTrade",
-                                ItemId = "(O)373",
-                                MaxItems = 1,
+                                Id = "RandomBones",
+                                ItemId = "RANDOM_ITEMS (O)",
+                                MaxItems = 5,
+                                PerItemCondition = "ITEM_CONTEXT_TAG Target bone_item"
+                            },
+                            new ShopItemData()
+                            {
+                                TradeItemId = $"{ModManifest.UniqueID}_SkeletonSkull",
+                                TradeItemAmount = 20,
+                                AvailableStockLimit = LimitedStockMode.Player,
+                                Id = "RandomArtifacts",
+                                ItemId = "RANDOM_ITEMS (O)",
+                                MaxItems = 2,
+                                AvoidRepeat = true,
+                                PerItemCondition = "ITEM_OBJECT_TYPE Target Arch"
                             },
                             new ShopItemData()
                             {
                                 TradeItemId = $"{ModManifest.UniqueID}_MageSkull",
-                                TradeItemAmount = 5,
+                                TradeItemAmount = 10,
                                 AvailableStock = 1,
                                 AvailableStockLimit = LimitedStockMode.Player,
                                 Id = "MageTrade",
@@ -306,7 +356,7 @@ namespace Graveyards
                     try
                     {
                         IAssetDataForMap editor = asset.AsMap();
-                        int mapNum = graveRandom.Next(1, 3);
+                        int mapNum = graveRandom.Next(1, 6);
                         Map sourceMap = Helper.GameContent.Load<Map>($"Spiderbuttons.Graveyards/{mapNum}");
                         editor.ReplaceWith(sourceMap);
                     }
@@ -576,7 +626,7 @@ namespace Graveyards
 
             if (e.Button is SButton.F6)
             {
-                Helper.GameContent.InvalidateCache("Maps/Mine");
+                Helper.GameContent.InvalidateCache("Data/Shops");
                 Helper.GameContent.InvalidateCache("Data/Characters");
             }
         }
