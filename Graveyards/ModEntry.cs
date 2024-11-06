@@ -13,6 +13,7 @@ using StardewValley;
 using Graveyards.Helpers;
 using Microsoft.Xna.Framework.Graphics;
 using Netcode;
+using Pastel;
 using StardewValley.Audio;
 using StardewValley.GameData;
 using StardewValley.Extensions;
@@ -95,7 +96,7 @@ namespace Graveyards
 
             GameLocation.RegisterTileAction("Spiderbuttons.Graveyards_Headstone", RandomTombstone);
         }
-        
+
         private bool RandomTombstone(GameLocation location, string[] args, Farmer player, Point point)
         {
             if (!randomNames.TryGetValue(point.ToString(), out var name))
@@ -104,7 +105,7 @@ namespace Graveyards
                 randomNames[point.ToString()] = randomName;
                 name = randomName;
             }
-            
+
             Game1.drawDialogueNoTyping($"Here Lies {name}");
             return true;
         }
@@ -137,6 +138,7 @@ namespace Graveyards
                 {
                     Game1.player.mailReceived.Remove($"{ModManifest.UniqueID}_ArrivalDwarvish");
                 }
+
                 if (Game1.player.mailReceived.Contains($"{ModManifest.UniqueID}_Arrival"))
                 {
                     Game1.player.mailReceived.Remove($"{ModManifest.UniqueID}_Arrival");
@@ -201,17 +203,17 @@ namespace Graveyards
             {
                 e.LoadFromModFile<Map>("assets/Maps/Graveyard2.tmx", AssetLoadPriority.Exclusive);
             }
-            
+
             if (e.NameWithoutLocale.IsEquivalentTo("Spiderbuttons.Graveyards/3"))
             {
                 e.LoadFromModFile<Map>("assets/Maps/Graveyard3.tmx", AssetLoadPriority.Exclusive);
             }
-            
+
             if (e.NameWithoutLocale.IsEquivalentTo("Spiderbuttons.Graveyards/4"))
             {
                 e.LoadFromModFile<Map>("assets/Maps/Graveyard4.tmx", AssetLoadPriority.Exclusive);
             }
-            
+
             if (e.NameWithoutLocale.IsEquivalentTo("Spiderbuttons.Graveyards/5"))
             {
                 e.LoadFromModFile<Map>("assets/Maps/Graveyard5.tmx", AssetLoadPriority.Exclusive);
@@ -567,6 +569,8 @@ namespace Graveyards
 
         private void OnGameLaunched(object sender, GameLaunchedEventArgs e)
         {
+            HappyHalloween();
+            
             var configMenu = Helper.ModRegistry.GetApi<IGenericModConfigMenuApi>("spacechase0.GenericModConfigMenu");
             if (configMenu != null) Config.SetupConfig(configMenu, ModManifest, Helper);
         }
@@ -623,6 +627,51 @@ namespace Graveyards
                 Helper.GameContent.InvalidateCache("Data/Shops");
                 Helper.GameContent.InvalidateCache("Data/Characters");
             }
+        }
+
+        private void HappyHalloween()
+
+        {
+            var hf = "\u2588".Pastel("#000000").PastelBg("#000000");
+            var pm = "\u2584".Pastel("DB722B").PastelBg("#000000");
+            var hb = "\u2584".Pastel("#E2BE46").PastelBg("#000000");
+            var hbf = "\u2588".Pastel("#E2BE46").PastelBg("#000000");
+            var gr = "\u2588".Pastel("#007F0E").PastelBg("#000000");
+            var mo = "●".Pastel("#F2F2F2").PastelBg("#000000");
+            var st = "\u2219".Pastel("#F2F2F2").PastelBg("#000000");
+            var happyPrefix = "\u2588\u2593\u2592\u2591".Pastel("#FF6A00").PastelBg("#000000");
+            var happyPostfix = "\u2591\u2592\u2593\u2588".Pastel("#FF6A00").PastelBg("#000000");
+            var happyHalloween = happyPrefix + hf + "H".Pastel("#FF6A00").PastelBg("#000000") +
+                                 "A".Pastel("#FF6A00").PastelBg("#000000") +
+                                 "P".Pastel("#FF6A00").PastelBg("#000000") +
+                                 "P".Pastel("#FF6A00").PastelBg("#000000") +
+                                 "Y".Pastel("#FF6A00").PastelBg("#000000") +
+                                 hf +
+                                 "H".Pastel("#FF6A00").PastelBg("#000000") +
+                                 "A".Pastel("#FF6A00").PastelBg("#000000") +
+                                 "L".Pastel("#FF6A00").PastelBg("#000000") +
+                                 "L".Pastel("#FF6A00").PastelBg("#000000") +
+                                 "O".Pastel("#FF6A00").PastelBg("#000000") +
+                                 "W".Pastel("#FF6A00").PastelBg("#000000") +
+                                 "E".Pastel("#FF6A00").PastelBg("#000000") +
+                                 "E".Pastel("#FF6A00").PastelBg("#000000") +
+                                 "N".Pastel("#FF6A00").PastelBg("#000000") +
+                                 "!".Pastel("#FF6A00").PastelBg("#000000") +
+                                 hf + happyPostfix;
+
+            var happy2 = happyPrefix + hf + st + hf + hf + hf + hf + hf + st + hf + hf + hf + hf + hf + mo + hf + hf +
+                         hf + hf + happyPostfix;
+            var happy3 = happyPrefix + hf + hf + hf + hf + st + hf + hf + hf + hf + hf + st + hf + hf + hf + hf + st +
+                         hf + hf + happyPostfix;
+            var happy4 = happyPrefix + hf + hf + pm + hf + pm + hf + pm + hf + pm + hf + pm + hf + hf + hb + hbf + hbf +
+                         hf + hf + happyPostfix;
+            var happy5 = happyPrefix + gr + gr + gr + gr + gr + gr + gr + gr + gr + gr + gr + gr + gr + gr + gr + gr +
+                         gr + gr + happyPostfix;
+            Log.Alert(happyHalloween);
+            Log.Alert(happy2);
+            Log.Alert(happy3);
+            Log.Alert(happy4);
+            Log.Alert(happy5);
         }
     }
 }
