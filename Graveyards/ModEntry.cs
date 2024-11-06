@@ -104,6 +104,7 @@ namespace Graveyards
                     graveLevels.Add(level);
                 }
             }
+
             Log.Debug($"Chosen levels: {string.Join(", ", graveLevels)}");
         }
 
@@ -111,18 +112,63 @@ namespace Graveyards
         {
             graveRandom = Utility.CreateDaySaveRandom();
             ChooseGraveLevels();
-            
+
+            if (Game1.season == Season.Fall && Game1.dayOfMonth == 21)
+            {
+                if (Game1.player.mailReceived.Contains($"{ModManifest.UniqueID}_ArrivalDwarvish"))
+                {
+                    Game1.player.mailReceived.Remove($"{ModManifest.UniqueID}_ArrivalDwarvish");
+                }
+                if (Game1.player.mailReceived.Contains($"{ModManifest.UniqueID}_Arrival"))
+                {
+                    Game1.player.mailReceived.Remove($"{ModManifest.UniqueID}_Arrival");
+                }
+
+                if (Game1.player.canUnderstandDwarves)
+                {
+                    Game1.addMailForTomorrow($"{ModManifest.UniqueID}_Arrival");
+                }
+                else
+                {
+                    Game1.addMailForTomorrow($"{ModManifest.UniqueID}_ArrivalDwarvish");
+                }
+            }
+
             if (Game1.season == Season.Fall && Game1.dayOfMonth >= 22 && Game1.dayOfMonth <= 28)
             {
                 var dwarf = Game1.getCharacterFromName("Dwarf");
                 dwarf.IsInvisible = true;
                 dwarf.daysUntilNotInvisible = 1;
+
+                Map map = Game1.getLocationFromName("Mine").Map;
+                Layer layer = map.GetLayer("Buildings");
+                Tile tile = GetTile(map, "Buildings", 43, 6);
+                if (tile is not null)
+                {
+                    tile = GetTile(map, "Buildings", 43, 6);
+                    tile.Properties["Action"] = $"OpenShop {ModManifest.UniqueID}_BoneLord down";
+                }
+                else
+                {
+                    layer.Tiles[43, 6] = new StaticTile(
+                        layer: layer,
+                        tileSheet: map.GetTileSheet("untitled tile sheet"),
+                        tileIndex: 256,
+                        blendMode: BlendMode.Alpha
+                    );
+
+                    tile = GetTile(map, "Buildings", 43, 6);
+                    tile.Properties["Action"] = $"OpenShop {ModManifest.UniqueID}_BoneLord down";
+                }
             }
             else
             {
                 var boneLord = Game1.getCharacterFromName($"{ModManifest.UniqueID}_BoneLord");
                 boneLord.IsInvisible = true;
                 boneLord.daysUntilNotInvisible = 1;
+
+                Tile tile = GetTile(Game1.getLocationFromName("Mine").Map, "Buildings", 43, 6);
+                tile?.Properties.Remove("Action");
             }
         }
 
@@ -132,7 +178,7 @@ namespace Graveyards
             {
                 e.LoadFromModFile<Map>("assets/Graveyard1.tmx", AssetLoadPriority.Exclusive);
             }
-            
+
             if (e.NameWithoutLocale.IsEquivalentTo("Spiderbuttons.Graveyards/2"))
             {
                 e.LoadFromModFile<Map>("assets/Graveyard2.tmx", AssetLoadPriority.Exclusive);
@@ -142,7 +188,7 @@ namespace Graveyards
             {
                 e.LoadFromModFile<Texture2D>("assets/BoneLord_Spritesheet.png", AssetLoadPriority.Exclusive);
             }
-            
+
             if (e.NameWithoutLocale.IsEquivalentTo($"Portraits/{ModManifest.UniqueID}_BoneLord"))
             {
                 e.LoadFromModFile<Texture2D>("assets/BoneLord_Portrait.png", AssetLoadPriority.Exclusive);
@@ -156,8 +202,8 @@ namespace Graveyards
                     editor.Data[$"{ModManifest.UniqueID}_BoneLord"] = new CharacterData()
                     {
                         DisplayName = "Bone Lord",
-                        CanSocialize = "TRUE",
-                        CanReceiveGifts = true,
+                        CanSocialize = "FALSE",
+                        CanReceiveGifts = false,
                         CanGreetNearbyCharacters = false,
                         Calendar = CalendarBehavior.HiddenAlways,
                         SocialTab = SocialTabBehavior.HiddenAlways,
@@ -172,7 +218,7 @@ namespace Graveyards
                             {
                                 Id = "HalloweenSeason",
                                 Location = "Mine",
-                                Tile = new Point(46, 7),
+                                Tile = new Point(43, 6),
                                 Direction = "down",
                             },
                         },
@@ -180,10 +226,11 @@ namespace Graveyards
                     };
                 });
             }
-            
+
             if (e.NameWithoutLocale.IsEquivalentTo($"Characters/Dialogue/{ModManifest.UniqueID}_BoneLord"))
             {
-                e.LoadFromModFile<Dictionary<string, string>>("assets/BoneLord_Dialogue.json", AssetLoadPriority.Exclusive);
+                e.LoadFromModFile<Dictionary<string, string>>("assets/BoneLord_Dialogue.json",
+                    AssetLoadPriority.Exclusive);
             }
 
             if (e.NameWithoutLocale.IsEquivalentTo($"Data/NPCGiftTastes"))
@@ -191,7 +238,8 @@ namespace Graveyards
                 e.Edit(asset =>
                 {
                     var editor = asset.AsDictionary<string, string>();
-                    editor.Data[$"{ModManifest.UniqueID}_BoneLord"] = "Hey, I really love this stuff. You can find great things in the mines./554 60 62 64 66 68 70 749 162/Ah, this reminds me of home./78 82 84 86 96 97 98 99 121 122/Hmm... Is this what humans like?/-5 16 -81 330/I don't care what species you are. This is worthless garbage.//An offering! Thank you./-6 -28/";
+                    editor.Data[$"{ModManifest.UniqueID}_BoneLord"] =
+                        "Hey, I really love this stuff. You can find great things in the mines./554 60 62 64 66 68 70 749 162/Ah, this reminds me of home./78 82 84 86 96 97 98 99 121 122/Hmm... Is this what humans like?/-5 16 -81 330/I don't care what species you are. This is worthless garbage.//An offering! Thank you./-6 -28/";
                 });
             }
 
@@ -247,7 +295,7 @@ namespace Graveyards
                     };
                 });
             }
-            
+
             if (e.NameWithoutLocale.BaseName.StartsWith("Maps/Mines/"))
             {
                 Log.Debug("Found mine level: " + e.NameWithoutLocale.BaseName);
@@ -264,29 +312,30 @@ namespace Graveyards
                     }
                     catch (Exception ex)
                     {
-                        return;
+                        //
                     }
                 });
             }
 
-            if (e.NameWithoutLocale.IsEquivalentTo("Maps/Mine") && Game1.season is Season.Fall && Game1.dayOfMonth >= 22 && Game1.dayOfMonth <= 28)
+            if (e.NameWithoutLocale.IsEquivalentTo("Maps/Mine") && Game1.season is Season.Fall &&
+                Game1.dayOfMonth >= 22 && Game1.dayOfMonth <= 28)
             {
-                // Log.Debug("Changing mine");
-                // e.Edit(asset =>
-                // {
-                //     var editor = asset.AsMap();
-                //     Map map = editor.Data;
-                //     Layer layer = map.GetLayer("Buildings");
-                //     layer.Tiles[46, 7] = new StaticTile(
-                //         layer: layer,
-                //         tileSheet: map.GetTileSheet("untitled tile sheet"),
-                //         tileIndex: 256,
-                //         blendMode: BlendMode.Alpha
-                //     );
-                //     
-                //     Tile tile = GetTile(map, "Buildings", 46, 7);
-                //     tile.Properties["Action"] = $"OpenShop {ModManifest.UniqueID}_BoneLord down";
-                // });
+                Log.Debug("Changing mine");
+                e.Edit(asset =>
+                {
+                    var editor = asset.AsMap();
+                    Map map = editor.Data;
+                    Layer layer = map.GetLayer("Buildings");
+                    layer.Tiles[43, 6] = new StaticTile(
+                        layer: layer,
+                        tileSheet: map.GetTileSheet("untitled tile sheet"),
+                        tileIndex: 256,
+                        blendMode: BlendMode.Alpha
+                    );
+
+                    Tile tile = GetTile(map, "Buildings", 43, 6);
+                    tile.Properties["Action"] = $"OpenShop {ModManifest.UniqueID}_BoneLord down";
+                });
             }
 
             if (e.NameWithoutLocale.IsEquivalentTo("Data/AudioChanges"))
@@ -303,6 +352,18 @@ namespace Graveyards
                         Looped = false,
                         UseReverb = false
                     };
+                });
+            }
+
+            if (e.NameWithoutLocale.IsEquivalentTo("Data/mail"))
+            {
+                e.Edit(asset =>
+                {
+                    var editor = asset.AsDictionary<string, string>();
+                    editor.Data[$"{ModManifest.UniqueID}_Arrival"] =
+                        "A friend will be taking my place in the mines this week. Please treat him as you've treated me: like a friend.[#]The Bone Lord Cometh";
+                    editor.Data[$"{ModManifest.UniqueID}_ArrivalDwarvish"] =
+                        "O hteup yenn du nomel mol notu e doo meus nhes yuum. Rnuosu ntuon hem os olai'xu ntuonup mu nemu o hteup.[#]Vhu Dau Natp Eamunh";
                 });
             }
 
@@ -366,11 +427,11 @@ namespace Graveyards
             {
                 ChooseGraveLevels();
             }
-            
+
             if (e.NewLocation is not MineShaft mine ||
                 !mine.Map.Properties.TryGetValue("Spiderbuttons.Graveyards", out _))
                 return;
-            
+
             var rng = Utility.CreateDaySaveRandom(Game1.hash.GetDeterministicHashCode(mine.NameOrUniqueName));
             mine.characters.Clear();
             mine.characters.OnValueRemoved += BoneDrops;
@@ -412,12 +473,13 @@ namespace Graveyards
         private void OnUpdateTicked(object? sender, UpdateTickedEventArgs e)
         {
             if (!Context.IsWorldReady) return;
-            
-            if ((!e.IsMultipleOf(45) && !e.IsMultipleOf(15)) || !Game1.currentLocation.characters.Any(npc => npc is Skeleton))
+
+            if ((!e.IsMultipleOf(45) && !e.IsMultipleOf(15)) ||
+                !Game1.currentLocation.characters.Any(npc => npc is Skeleton))
                 return;
 
             if (Game1.activeClickableMenu is not InstrumentMenu) return;
-            
+
             var rng = Utility.CreateRandom(Game1.currentGameTime.TotalGameTime.TotalMilliseconds);
 
             foreach (var monster in Game1.currentLocation.characters)
@@ -430,6 +492,7 @@ namespace Graveyards
                         monster.faceDirection(rng.Next(0, 4));
                         monster.Sprite.CurrentFrame += rng.Next(0, 2);
                     }
+
                     monster.Sprite.CurrentFrame++;
                     if (monster.Sprite.CurrentFrame >= 16) monster.Sprite.CurrentFrame = 0;
                 }
@@ -506,13 +569,9 @@ namespace Graveyards
 
             if (e.Button is SButton.F5)
             {
-                foreach (var mon in Game1.currentLocation.characters)
-                {
-                    if (mon is Skeleton skele)
-                    {
-                        // foreach (var anim in skele.Sprite.animation)
-                    }
-                }
+                string test =
+                    "A friend will be taking my place in the mines this week. Please treat him as you've treated me: like a friend. The Bone Lord Cometh";
+                Log.Debug(Dialogue.convertToDwarvish(test));
             }
 
             if (e.Button is SButton.F6)
