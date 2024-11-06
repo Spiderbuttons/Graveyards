@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using GenericModConfigMenu;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
@@ -522,7 +523,6 @@ namespace Graveyards
             if (e.NewLocation is Mine && !MineShaft.activeMines.Any())
             {
                 if (!Config.ConsistentGraveyards) ChooseGraveLevels();
-                Log.Warn($"Chosen levels: {string.Join(", ", graveLevels)}");
             }
 
             if (e.NewLocation is not MineShaft mine ||
