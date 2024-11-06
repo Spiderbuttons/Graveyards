@@ -121,7 +121,7 @@ namespace Graveyards
             {
                 case < 0.1:
                 {
-                    Item item = ItemRegistry.Create("(O)126");
+                    Item item = ItemRegistry.Create("(O)103");
                     Game1.createItemDebris(item, tilePixelPos, -1, __instance);
                     break;
                 }
