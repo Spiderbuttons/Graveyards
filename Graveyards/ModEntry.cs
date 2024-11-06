@@ -103,7 +103,6 @@ namespace Graveyards
 
         private static bool ArtifactPatch(MineShaft __instance, int xLocation, int yLocation)
         {
-            Log.Debug("Test");
             if (!__instance.Map.Properties.TryGetValue("Spiderbuttons.Graveyards", out _))
                 return true;
 
@@ -174,8 +173,6 @@ namespace Graveyards
                     graveLevels.Add(level);
                 }
             }
-
-            Log.Debug($"Chosen levels: {string.Join(", ", graveLevels)}");
         }
 
         private void OnDayStarted(object? sender, DayStartedEventArgs e)
@@ -407,7 +404,6 @@ namespace Graveyards
 
             if (e.NameWithoutLocale.BaseName.StartsWith("Maps/Mines/"))
             {
-                Log.Debug("Found mine level: " + e.NameWithoutLocale.BaseName);
                 if (!int.TryParse(e.NameWithoutLocale.BaseName.Split('/').Last(), out int lvl)) return;
                 if (!graveLevels.Contains(lvl)) return;
                 e.Edit(asset =>
@@ -429,7 +425,6 @@ namespace Graveyards
             if (e.NameWithoutLocale.IsEquivalentTo("Maps/Mine") && Game1.season is Season.Fall &&
                 Game1.dayOfMonth >= 22 && Game1.dayOfMonth <= 28)
             {
-                Log.Debug("Changing mine");
                 e.Edit(asset =>
                 {
                     var editor = asset.AsMap();
