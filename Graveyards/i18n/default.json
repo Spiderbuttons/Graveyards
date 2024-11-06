@@ -1,3 +1,34 @@
 ﻿{
-  "Key": "Value"
+  // InstrumentMenu
+  "PressEsc": "Press ESC to exit.",
+  "UseKeyboard": "Use your keyboard to play music!",
+  
+  // Bone Lord Dialogue
+  "Mon": "Ah, there you are. The dwarf has told me much about you.#$b#It's around this time of year my brethren get a bit... rattled. I'm sure it's nothing more than you can handle...",
+  "Tue": "The week has only just begun. Have you, ah, 'convinced' many of my kin to return to rest already?",
+  "Wed": "You still have plenty of time before your kind's festivities. Not to worry, I will be here.",
+  "Thu": "It's not their fault, you know... the other skeletons. Death doesn't do well for the psyche.",
+  "Fri": "The eve approaches... I can feel the unrest from below.#$b#I hope you are still prepared.",
+  "Sat": "Tonight is the night. They should unwind after this... hopefully.#$e#Ah, but don't you have other plans today?",
+  "Sun": "These old bones of mine are beginning to tire... it's time for me to take my rest, too.",
+  
+  // Bone Lord Shop
+  "Trouble": "Has my kind been giving you trouble?",
+  
+  // Dwarf Letter
+  "LetterMsg": "A friend will be taking my place in the mines this week. Please treat him as you've treated me: like a friend.",
+  "LetterTitle": "The Bone Lord Cometh",
+  
+  // Skull Items
+  "SkeletonSkullName": "Skeleton Skull",
+  "SkeletonSkullDesc": "The Bone Lord may be interested in these.",
+  
+  "MageSkullName": "Mage Skull",
+  "MageSkullDesc": "A skull from a stronger variety of skeleton. Collect enough of these and the Bone Lord may bestow upon you the ultimate reward...",
+  
+  "XyloboneName": "Xylobone",
+  "XyloboneDesc": "For playing spooky tunes!",
+  
+  // Headstones
+  "HereLies": "Here lies",
 }

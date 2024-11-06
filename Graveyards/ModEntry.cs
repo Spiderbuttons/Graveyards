@@ -156,7 +156,8 @@ namespace Graveyards
                 name = randomName;
             }
 
-            Game1.drawDialogueNoTyping($"Here Lies {name}");
+            var msg = i18n.HereLies() + $" {name}";
+            Game1.drawDialogueNoTyping(msg.ToUpper());
             return true;
         }
 
@@ -314,8 +315,20 @@ namespace Graveyards
 
             if (e.NameWithoutLocale.IsEquivalentTo($"Characters/Dialogue/{ModManifest.UniqueID}_BoneLord"))
             {
-                e.LoadFromModFile<Dictionary<string, string>>("assets/BoneLord/BoneLord_Dialogue.json",
-                    AssetLoadPriority.Exclusive);
+                
+                
+                e.LoadFrom(() =>
+                {
+                    var dialogueDictionary = new Dictionary<string, string>();
+                    dialogueDictionary["Mon"] = i18n.Mon();
+                    dialogueDictionary["Tue"] = i18n.Tue();
+                    dialogueDictionary["Wed"] = i18n.Wed();
+                    dialogueDictionary["Thu"] = i18n.Thu();
+                    dialogueDictionary["Fri"] = i18n.Fri();
+                    dialogueDictionary["Sat"] = i18n.Sat();
+                    dialogueDictionary["Sun"] = i18n.Sun();
+                    return dialogueDictionary;
+                }, AssetLoadPriority.Exclusive);
             }
 
             if (e.NameWithoutLocale.IsEquivalentTo($"Data/NPCGiftTastes"))
@@ -349,7 +362,7 @@ namespace Graveyards
                                     new ShopDialogueData()
                                     {
                                         Id = "Default",
-                                        Dialogue = "Has my kind been giving you trouble?",
+                                        Dialogue = i18n.Trouble()
                                     }
                                 }
                             }
@@ -456,8 +469,7 @@ namespace Graveyards
                 e.Edit(asset =>
                 {
                     var editor = asset.AsDictionary<string, string>();
-                    editor.Data[$"{ModManifest.UniqueID}_Arrival"] =
-                        "A friend will be taking my place in the mines this week. Please treat him as you've treated me: like a friend.[#]The Bone Lord Cometh";
+                    editor.Data[$"{ModManifest.UniqueID}_Arrival"] = i18n.LetterMsg() + "[#]" + i18n.LetterTitle();
                     editor.Data[$"{ModManifest.UniqueID}_ArrivalDwarvish"] =
                         "O hteup yenn du nomel mol notu e doo meus nhes yuum. Rnuosu ntuon hem os olai'xu ntuonup mu nemu o hteup.[#]Vhu Dau Natp Eamunh";
                 });
@@ -476,8 +488,8 @@ namespace Graveyards
                     editor.Data[$"{ModManifest.UniqueID}_SkeletonSkull"] = new ObjectData()
                     {
                         Name = $"{ModManifest.UniqueID}_SkeletonSkull",
-                        DisplayName = "Skeleton Skull",
-                        Description = "The Bone Lord may be interested in these.",
+                        DisplayName = i18n.SkeletonSkullName(),
+                        Description = i18n.SkeletonSkullDesc(),
                         Category = 0,
                         Price = 13,
                         Edibility = -300,
@@ -489,9 +501,8 @@ namespace Graveyards
                     editor.Data[$"{ModManifest.UniqueID}_MageSkull"] = new ObjectData()
                     {
                         Name = $"{ModManifest.UniqueID}_MageSkull",
-                        DisplayName = "Mage Skull",
-                        Description =
-                            "A skull from a stronger variety of skeleton. Collect enough of these and the Bone Lord may bestow upon you the ultimate reward...",
+                        DisplayName = i18n.MageSkullName(),
+                        Description = i18n.MageSkullDesc(),
                         Category = 0,
                         Price = 31,
                         Edibility = -300,
@@ -503,8 +514,8 @@ namespace Graveyards
                     editor.Data[$"{ModManifest.UniqueID}_Xylobone"] = new ObjectData()
                     {
                         Name = $"{ModManifest.UniqueID}_Xylobone",
-                        DisplayName = "Xylobone",
-                        Description = "For playing spooky tunes!",
+                        DisplayName = i18n.XyloboneName(),
+                        Description = i18n.XyloboneDesc(),
                         Category = 0,
                         Price = 0,
                         Edibility = -300,
@@ -642,7 +653,6 @@ namespace Graveyards
                 e.Button.TryGetKeyboard(out var input);
                 if (Game1.options.doesInputListContain(Game1.options.menuButton, input))
                 {
-                    // Game1.activeClickableMenu = null;
                     Game1.player.forceCanMove();
                 }
 
@@ -670,25 +680,13 @@ namespace Graveyards
             {
                 Game1.activeClickableMenu = new InstrumentMenu();
             }
-
-
-            if (e.Button is SButton.F5)
-            {
-                string test =
-                    "A friend will be taking my place in the mines this week. Please treat him as you've treated me: like a friend. The Bone Lord Cometh";
-                Log.Debug(Dialogue.convertToDwarvish(test));
-            }
-
-            if (e.Button is SButton.F6)
-            {
-                Helper.GameContent.InvalidateCache("Data/Shops");
-                Helper.GameContent.InvalidateCache("Data/Characters");
-            }
         }
 
         private void HappyHalloween()
 
         {
+            // My linter/Prettier/whatever the fuck made an absolute mess of this formatting, eugh.
+            
             var hf = "\u2588".Pastel("#000000").PastelBg("#000000");
             var pm = "\u2584".Pastel("DB722B").PastelBg("#000000");
             var hb = "\u2584".Pastel("#E2BE46").PastelBg("#000000");

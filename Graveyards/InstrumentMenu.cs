@@ -13,8 +13,8 @@ public class InstrumentMenu : IClickableMenu
         Game1.freezeControls = true;
         Game1.displayHUD = false;
         Game1.playSound("smallSelect");
-        Game1.showGlobalMessage("Press ESC to exit.");
-        Game1.showGlobalMessage("Use your keyboard to play music!");
+        Game1.showGlobalMessage(i18n.PressEsc());
+        Game1.showGlobalMessage(i18n.UseKeyboard());
 
         ModEntry.lastNotePlayed = 0;
     }
