@@ -1,7 +1,7 @@
 {
     "Name": "Graveyards",
     "Author": "Spiderbuttons",
-    "Version": "1.0.2",
+    "Version": "1.0.3",
     "Description": "There are graveyards in the mines... what treasures do they hold?",
     "UniqueID": "Spiderbuttons.Graveyards",
     "EntryDll": "Graveyards.dll",
