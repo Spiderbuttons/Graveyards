@@ -8,11 +8,9 @@ using Microsoft.Xna.Framework;
 using Graveyards.Config;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
-using StardewModdingAPI.Utilities;
 using StardewValley;
 using Graveyards.Helpers;
 using Microsoft.Xna.Framework.Graphics;
-using Netcode;
 using Pastel;
 using StardewValley.Audio;
 using StardewValley.GameData;
@@ -22,16 +20,12 @@ using StardewValley.GameData.Objects;
 using StardewValley.GameData.Pants;
 using StardewValley.GameData.Shirts;
 using StardewValley.GameData.Shops;
-using StardewValley.Internal;
 using StardewValley.Locations;
-using StardewValley.Menus;
 using StardewValley.Monsters;
-using StardewValley.Network;
 using xTile;
 using xTile.Dimensions;
 using xTile.Layers;
 using xTile.Tiles;
-using Object = StardewValley.Object;
 
 namespace Graveyards
 {
@@ -415,7 +409,7 @@ namespace Graveyards
                         Map sourceMap = Helper.GameContent.Load<Map>($"Spiderbuttons.Graveyards/{mapNum}");
                         editor.ReplaceWith(sourceMap);
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         //
                     }
@@ -629,7 +623,7 @@ namespace Graveyards
             {
                 HappyHalloween();
             }
-            catch (Exception ex)
+            catch
             {
                 Log.Trace("Can't do Happy Halloween message ):");
             }
