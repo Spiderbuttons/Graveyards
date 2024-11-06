@@ -16,7 +16,9 @@ using Netcode;
 using StardewValley.Audio;
 using StardewValley.GameData;
 using StardewValley.Extensions;
+using StardewValley.GameData.Characters;
 using StardewValley.GameData.Objects;
+using StardewValley.GameData.Shops;
 using StardewValley.Locations;
 using StardewValley.Menus;
 using StardewValley.Monsters;
@@ -40,7 +42,7 @@ namespace Graveyards
 
         internal static Random graveRandom = null!;
 
-        internal static Dictionary<SButton, int> Pitches = new()
+        internal static readonly Dictionary<SButton, int> Pitches = new()
         {
             { SButton.Q, 1600 },
             { SButton.W, 1700 },
@@ -109,6 +111,19 @@ namespace Graveyards
         {
             graveRandom = Utility.CreateDaySaveRandom();
             ChooseGraveLevels();
+            
+            if (Game1.season == Season.Fall && Game1.dayOfMonth >= 22 && Game1.dayOfMonth <= 28)
+            {
+                var dwarf = Game1.getCharacterFromName("Dwarf");
+                dwarf.IsInvisible = true;
+                dwarf.daysUntilNotInvisible = 1;
+            }
+            else
+            {
+                var boneLord = Game1.getCharacterFromName($"{ModManifest.UniqueID}_BoneLord");
+                boneLord.IsInvisible = true;
+                boneLord.daysUntilNotInvisible = 1;
+            }
         }
 
         private void OnAssetRequested(object? sender, AssetRequestedEventArgs e)
@@ -121,6 +136,116 @@ namespace Graveyards
             if (e.NameWithoutLocale.IsEquivalentTo("Spiderbuttons.Graveyards/2"))
             {
                 e.LoadFromModFile<Map>("assets/Graveyard2.tmx", AssetLoadPriority.Exclusive);
+            }
+
+            if (e.NameWithoutLocale.IsEquivalentTo($"Characters/{ModManifest.UniqueID}_BoneLord"))
+            {
+                e.LoadFromModFile<Texture2D>("assets/BoneLord_Spritesheet.png", AssetLoadPriority.Exclusive);
+            }
+            
+            if (e.NameWithoutLocale.IsEquivalentTo($"Portraits/{ModManifest.UniqueID}_BoneLord"))
+            {
+                e.LoadFromModFile<Texture2D>("assets/BoneLord_Portrait.png", AssetLoadPriority.Exclusive);
+            }
+
+            if (e.NameWithoutLocale.IsEquivalentTo("Data/Characters"))
+            {
+                e.Edit(asset =>
+                {
+                    var editor = asset.AsDictionary<string, CharacterData>();
+                    editor.Data[$"{ModManifest.UniqueID}_BoneLord"] = new CharacterData()
+                    {
+                        DisplayName = "Bone Lord",
+                        CanSocialize = "TRUE",
+                        CanReceiveGifts = true,
+                        CanGreetNearbyCharacters = false,
+                        Calendar = CalendarBehavior.HiddenAlways,
+                        SocialTab = SocialTabBehavior.HiddenAlways,
+                        IntroductionsQuest = false,
+                        ItemDeliveryQuests = "FALSE",
+                        PerfectionScore = false,
+                        EndSlideShow = EndSlideShowBehavior.Hidden,
+                        WinterStarParticipant = "FALSE",
+                        Home = new List<CharacterHomeData>()
+                        {
+                            new CharacterHomeData()
+                            {
+                                Id = "HalloweenSeason",
+                                Location = "Mine",
+                                Tile = new Point(46, 7),
+                                Direction = "down",
+                            },
+                        },
+                        Breather = false,
+                    };
+                });
+            }
+            
+            if (e.NameWithoutLocale.IsEquivalentTo($"Characters/Dialogue/{ModManifest.UniqueID}_BoneLord"))
+            {
+                e.LoadFromModFile<Dictionary<string, string>>("assets/BoneLord_Dialogue.json", AssetLoadPriority.Exclusive);
+            }
+
+            if (e.NameWithoutLocale.IsEquivalentTo($"Data/NPCGiftTastes"))
+            {
+                e.Edit(asset =>
+                {
+                    var editor = asset.AsDictionary<string, string>();
+                    editor.Data[$"{ModManifest.UniqueID}_BoneLord"] = "Hey, I really love this stuff. You can find great things in the mines./554 60 62 64 66 68 70 749 162/Ah, this reminds me of home./78 82 84 86 96 97 98 99 121 122/Hmm... Is this what humans like?/-5 16 -81 330/I don't care what species you are. This is worthless garbage.//An offering! Thank you./-6 -28/";
+                });
+            }
+
+            if (e.NameWithoutLocale.IsEquivalentTo("Data/Shops"))
+            {
+                e.Edit(asset =>
+                {
+                    var editor = asset.AsDictionary<string, ShopData>();
+                    editor.Data[$"{ModManifest.UniqueID}_BoneLord"] = new ShopData()
+                    {
+                        Currency = 0,
+                        OpenSound = "skeletonDie",
+                        PurchaseSound = "skeletonHit",
+                        Owners = new List<ShopOwnerData>()
+                        {
+                            new ShopOwnerData()
+                            {
+                                Id = $"{ModManifest.UniqueID}_BoneLord",
+                                Name = $"{ModManifest.UniqueID}_BoneLord",
+                                Dialogues = new List<ShopDialogueData>()
+                                {
+                                    new ShopDialogueData()
+                                    {
+                                        Id = "Default",
+                                        Dialogue = "Has my kind been giving you trouble?",
+                                    }
+                                }
+                            }
+                        },
+                        Items = new List<ShopItemData>()
+                        {
+                            new ShopItemData()
+                            {
+                                TradeItemId = $"{ModManifest.UniqueID}_SkeletonSkull",
+                                TradeItemAmount = 5,
+                                AvailableStock = 1,
+                                AvailableStockLimit = LimitedStockMode.Player,
+                                Id = "SkullTrade",
+                                ItemId = "(O)373",
+                                MaxItems = 1,
+                            },
+                            new ShopItemData()
+                            {
+                                TradeItemId = $"{ModManifest.UniqueID}_MageSkull",
+                                TradeItemAmount = 5,
+                                AvailableStock = 1,
+                                AvailableStockLimit = LimitedStockMode.Player,
+                                Id = "MageTrade",
+                                ItemId = $"(O){ModManifest.UniqueID}_Xylobone",
+                                MaxItems = 1,
+                            },
+                        }
+                    };
+                });
             }
             
             if (e.NameWithoutLocale.BaseName.StartsWith("Maps/Mines/"))
@@ -142,6 +267,26 @@ namespace Graveyards
                         return;
                     }
                 });
+            }
+
+            if (e.NameWithoutLocale.IsEquivalentTo("Maps/Mine") && Game1.season is Season.Fall && Game1.dayOfMonth >= 22 && Game1.dayOfMonth <= 28)
+            {
+                // Log.Debug("Changing mine");
+                // e.Edit(asset =>
+                // {
+                //     var editor = asset.AsMap();
+                //     Map map = editor.Data;
+                //     Layer layer = map.GetLayer("Buildings");
+                //     layer.Tiles[46, 7] = new StaticTile(
+                //         layer: layer,
+                //         tileSheet: map.GetTileSheet("untitled tile sheet"),
+                //         tileIndex: 256,
+                //         blendMode: BlendMode.Alpha
+                //     );
+                //     
+                //     Tile tile = GetTile(map, "Buildings", 46, 7);
+                //     tile.Properties["Action"] = $"OpenShop {ModManifest.UniqueID}_BoneLord down";
+                // });
             }
 
             if (e.NameWithoutLocale.IsEquivalentTo("Data/AudioChanges"))
@@ -168,7 +313,6 @@ namespace Graveyards
 
             if (e.NameWithoutLocale.IsEquivalentTo("Data/Objects"))
             {
-                Log.Debug("Adding bone items...");
                 e.Edit(asset =>
                 {
                     var editor = asset.AsDictionary<string, ObjectData>();
@@ -373,8 +517,8 @@ namespace Graveyards
 
             if (e.Button is SButton.F6)
             {
-                Helper.GameContent.InvalidateCache("Maps/Mines");
-                Helper.GameContent.InvalidateCache("Data/Objects");
+                Helper.GameContent.InvalidateCache("Maps/Mine");
+                Helper.GameContent.InvalidateCache("Data/Characters");
             }
         }
     }
