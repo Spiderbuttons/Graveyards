@@ -434,7 +434,7 @@ namespace Graveyards
 
                     Tile tile = GetTile(map, "Buildings", 43, 6);
                     tile.Properties["Action"] = $"OpenShop {ModManifest.UniqueID}_BoneLord down";
-                });
+                }, AssetEditPriority.Late);
             }
 
             if (e.NameWithoutLocale.IsEquivalentTo("Data/AudioChanges"))
@@ -523,6 +523,46 @@ namespace Graveyards
             if (e.NewLocation is Mine && !MineShaft.activeMines.Any())
             {
                 if (!Config.ConsistentGraveyards) ChooseGraveLevels();
+            }
+
+            if (e.NewLocation is Mine)
+            {
+                if (Game1.season == Season.Fall && Game1.dayOfMonth >= 22 && Game1.dayOfMonth <= 28)
+                {
+                    var dwarf = Game1.getCharacterFromName("Dwarf");
+                    dwarf.IsInvisible = true;
+                    dwarf.daysUntilNotInvisible = 1;
+
+                    Map map = Game1.getLocationFromName("Mine").Map;
+                    Layer layer = map.GetLayer("Buildings");
+                    Tile tile = GetTile(map, "Buildings", 43, 6);
+                    if (tile is not null)
+                    {
+                        tile = GetTile(map, "Buildings", 43, 6);
+                        tile.Properties["Action"] = $"OpenShop {ModManifest.UniqueID}_BoneLord down";
+                    }
+                    else
+                    {
+                        layer.Tiles[43, 6] = new StaticTile(
+                            layer: layer,
+                            tileSheet: map.GetTileSheet("untitled tile sheet"),
+                            tileIndex: 256,
+                            blendMode: BlendMode.Alpha
+                        );
+
+                        tile = GetTile(map, "Buildings", 43, 6);
+                        tile.Properties["Action"] = $"OpenShop {ModManifest.UniqueID}_BoneLord down";
+                    }
+                }
+                else
+                {
+                    var boneLord = Game1.getCharacterFromName($"{ModManifest.UniqueID}_BoneLord");
+                    boneLord.IsInvisible = true;
+                    boneLord.daysUntilNotInvisible = 1;
+
+                    Tile tile = GetTile(Game1.getLocationFromName("Mine").Map, "Buildings", 43, 6);
+                    tile?.Properties.Remove("Action");
+                }
             }
 
             if (e.NewLocation is not MineShaft mine ||
