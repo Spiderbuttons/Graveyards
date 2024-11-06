@@ -36,11 +36,14 @@
   "HereLies": "Here lies",
   
   // Config
+  "ConsistentGraveyardsName": "Consistent Graveyards",
+  "ConsistentGraveyardsTooltip": "Whether or not the levels the graveyards spawn at should only be changed once per day, as opposed to every time the player enters the mines.",
+  
   "SkeletonMinName": "Minimum Skeletons",
   "SkeletonMinTooltip": "The minimum number of skeletons that can spawn in a graveyard.",
   
-    "SkeletonMaxName": "Maximum Skeletons",
-    "SkeletonMaxTooltip": "The maximum number of skeletons that can spawn in a graveyard.",
+  "SkeletonMaxName": "Maximum Skeletons",
+  "SkeletonMaxTooltip": "The maximum number of skeletons that can spawn in a graveyard.",
   
   "BoneItemName": "Bone Item Cost",
   "BoneItemTooltip": "The cost, in Skeleton Skulls, of the random bone items in the Bone Lord shop.",

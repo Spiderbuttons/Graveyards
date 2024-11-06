@@ -521,7 +521,8 @@ namespace Graveyards
         {
             if (e.NewLocation is Mine && !MineShaft.activeMines.Any())
             {
-                ChooseGraveLevels();
+                if (!Config.ConsistentGraveyards) ChooseGraveLevels();
+                Log.Warn($"Chosen levels: {string.Join(", ", graveLevels)}");
             }
 
             if (e.NewLocation is not MineShaft mine ||

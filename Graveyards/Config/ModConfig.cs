@@ -6,6 +6,7 @@ namespace Graveyards.Config;
 
 public sealed class ModConfig
 {
+    public bool ConsistentGraveyards { get; set; } = false;
     public int SkeletonMinimum { get; set; } = 3;
     public int SkeletonMaximum { get; set; } = 5;
     public int BoneItemPrice { get; set; } = 5;
@@ -19,6 +20,9 @@ public sealed class ModConfig
 
     private void Init()
     {
+        this.ConsistentGraveyards = false;
+        this.SkeletonMinimum = 3;
+        this.SkeletonMaximum = 5;
         this.BoneItemPrice = 5;
         this.ArtifactPrice = 20;
         this.XylobonePrice = 10;
@@ -30,6 +34,14 @@ public sealed class ModConfig
             mod: ModManifest,
             reset: Init,
             save: () => Helper.WriteConfig(this)
+        );
+        
+        configMenu.AddBoolOption(
+            mod: ModManifest,
+            name: i18n.ConsistentGraveyardsName,
+            tooltip: i18n.ConsistentGraveyardsTooltip,
+            getValue: () => this.ConsistentGraveyards,
+            setValue: value => this.ConsistentGraveyards = value
         );
         
         configMenu.AddNumberOption(
