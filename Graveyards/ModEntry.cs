@@ -5,7 +5,7 @@ using System.Linq;
 using GenericModConfigMenu;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
-using SkeletonWar.Config;
+using Graveyards.Config;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
@@ -372,7 +372,7 @@ namespace Graveyards
                             new ShopItemData()
                             {
                                 TradeItemId = $"{ModManifest.UniqueID}_SkeletonSkull",
-                                TradeItemAmount = 5,
+                                TradeItemAmount = Config.BoneItemPrice,
                                 AvailableStockLimit = LimitedStockMode.Player,
                                 Id = "RandomBones",
                                 ItemId = "RANDOM_ITEMS (O)",
@@ -382,7 +382,7 @@ namespace Graveyards
                             new ShopItemData()
                             {
                                 TradeItemId = $"{ModManifest.UniqueID}_SkeletonSkull",
-                                TradeItemAmount = 20,
+                                TradeItemAmount = Config.ArtifactPrice,
                                 AvailableStockLimit = LimitedStockMode.Player,
                                 Id = "RandomArtifacts",
                                 ItemId = "RANDOM_ITEMS (O)",
@@ -393,7 +393,7 @@ namespace Graveyards
                             new ShopItemData()
                             {
                                 TradeItemId = $"{ModManifest.UniqueID}_MageSkull",
-                                TradeItemAmount = 10,
+                                TradeItemAmount = Config.XylobonePrice,
                                 AvailableStock = 1,
                                 AvailableStockLimit = LimitedStockMode.Player,
                                 Id = "MageTrade",
@@ -569,11 +569,11 @@ namespace Graveyards
                         mine.tryToAddMonster(monsterToAdd, x, y);
                     }
 
-                    if (mine.characters.Count >= 5) return;
+                    if (mine.characters.Count >= Config.SkeletonMaximum) return;
                 }
             }
 
-            if (mine.characters.Count < 3)
+            if (mine.characters.Count < Config.SkeletonMinimum)
                 goto guaranteeSkeletons;
         }
 
