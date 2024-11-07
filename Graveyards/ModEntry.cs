@@ -708,7 +708,7 @@ namespace Graveyards
 
             if (validButtons.Contains(e.Button) && Game1.player.CurrentItem is not null &&
                 Game1.player.CurrentItem.QualifiedItemId.Equals($"(O){ModManifest.UniqueID}_Xylobone",
-                    StringComparison.OrdinalIgnoreCase))
+                    StringComparison.OrdinalIgnoreCase) && Game1.activeClickableMenu is null)
             {
                 Game1.activeClickableMenu = new InstrumentMenu();
             }
