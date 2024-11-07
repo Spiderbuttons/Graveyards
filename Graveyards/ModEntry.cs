@@ -678,8 +678,6 @@ namespace Graveyards
             if (!Context.IsWorldReady)
                 return;
 
-            if (e.Button is SButton.MouseRight) Log.Warn("MouseRight!");
-
             if (Game1.activeClickableMenu is InstrumentMenu)
             {
                 e.Button.TryGetKeyboard(out var input);
