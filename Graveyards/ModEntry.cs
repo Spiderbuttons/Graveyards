@@ -678,6 +678,8 @@ namespace Graveyards
             if (!Context.IsWorldReady)
                 return;
 
+            if (e.Button is SButton.MouseRight) Log.Warn("MouseRight!");
+
             if (Game1.activeClickableMenu is InstrumentMenu)
             {
                 e.Button.TryGetKeyboard(out var input);
@@ -703,10 +705,8 @@ namespace Graveyards
 
                 return;
             }
-            
-            List<SButton> validButtons = [SButton.MouseRight, SButton.ControllerX];
 
-            if (validButtons.Contains(e.Button) && Game1.player.CurrentItem is not null &&
+            if ((e.Button.IsActionButton() || e.Button.IsUseToolButton()) && Game1.player.CurrentItem is not null &&
                 Game1.player.CurrentItem.QualifiedItemId.Equals($"(O){ModManifest.UniqueID}_Xylobone",
                     StringComparison.OrdinalIgnoreCase) && Game1.activeClickableMenu is null)
             {
