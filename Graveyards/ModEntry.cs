@@ -703,8 +703,10 @@ namespace Graveyards
 
                 return;
             }
+            
+            List<SButton> validButtons = [SButton.MouseRight, SButton.ControllerX];
 
-            if (e.Button is SButton.MouseRight && Game1.player.CurrentItem is not null &&
+            if (validButtons.Contains(e.Button) && Game1.player.CurrentItem is not null &&
                 Game1.player.CurrentItem.QualifiedItemId.Equals($"(O){ModManifest.UniqueID}_Xylobone",
                     StringComparison.OrdinalIgnoreCase))
             {
