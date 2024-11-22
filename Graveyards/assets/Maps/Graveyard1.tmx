@@ -3,7 +3,7 @@
  <properties>
   <property name="Spiderbuttons.Graveyards" value="T"/>
  </properties>
- <tileset firstgid="1" name="Mines/mine" tilewidth="16" tileheight="16" tilecount="288" columns="16">
+ <tileset firstgid="1" name="mine" tilewidth="16" tileheight="16" tilecount="288" columns="16">
   <image source="Mines/mine" width="256" height="288"/>
   <tile id="0">
    <properties>
