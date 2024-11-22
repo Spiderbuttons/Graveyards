@@ -1,7 +1,7 @@
 {
     "Name": "Graveyards",
     "Author": "Spiderbuttons",
-    "Version": "1.0.4",
+    "Version": "1.0.5",
     "Description": "There are graveyards in the mines... what treasures do they hold?",
     "UniqueID": "Spiderbuttons.Graveyards",
     "MinimumApiVersion": "4.1.0",
